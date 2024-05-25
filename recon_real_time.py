@@ -44,7 +44,7 @@ def get_mask_from_dist(image, d=1):
 
 
 def crop(img,  crop_size, crop_type):
-    tw, th = crop_size
+    th, tw = crop_size
     h, w = img.shape[0], img.shape[1]
     if crop_type == 'center':
         if len(img.shape) == 2:
@@ -53,9 +53,9 @@ def crop(img,  crop_size, crop_type):
             crop_img = img[(h - th) // 2:(h + th) // 2, (w - tw) // 2:(w + tw) // 2, :]
     # down sample: INTER_NEAREST INTER_AREA
     elif crop_type == 'cv2resize':
-        crop_img = cv2.resize(img, crop_size, interpolation=cv2.INTER_NEAREST)
+        crop_img = cv2.resize(img, (tw, th), interpolation=cv2.INTER_NEAREST)
     else:  # INTER_LINEAR
-        crop_img = cv2.resize(img, crop_size)
+        crop_img = cv2.resize(img, (tw, th))
     return crop_img
 
 
